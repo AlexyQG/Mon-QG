@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#17232d">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="MON QG">
+<title>MON QG — Tableau de bord personnel</title>
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<style>
+:root{--navy:#17232d;--charcoal:#252b30;--orange:#e87524;--blue:#236a91;--green:#26734d;--brown:#99501f;--purple:#5b3a82;--red:#a72a2a;--gold:#d97825;--paper:#f2f5f6;--ink:#17232d;--line:#c8d0d5}
+*{box-sizing:border-box}body{margin:0;background:#dce1e4;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}button,input,textarea,select{font:inherit}
+header{background:linear-gradient(125deg,#11191f,#26343e 58%,#11191f);color:white;border-bottom:5px solid var(--orange);padding:20px 14px 16px}
+.wrap{max-width:1400px;margin:auto}.brandrow{display:flex;gap:13px;align-items:center}.logo{width:56px;height:56px;border-radius:15px;background:linear-gradient(145deg,#f78a31,#c64d12);display:grid;place-items:center;font-size:30px;box-shadow:0 5px 12px #0005;flex-shrink:0}.kicker{text-transform:uppercase;letter-spacing:.17em;color:#bfc8ce;font-size:.72rem;font-weight:800}h1{font-size:clamp(2rem,5vw,3.3rem);font-style:italic;line-height:1;margin:4px 0;font-weight:950;letter-spacing:-.05em}h1 span{color:var(--orange)}.tag{color:#dce2e6;font-size:.9rem;font-weight:600}.weekbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:17px}.weekbar label{font-size:.75rem;font-weight:900;color:#dce2e6}.weekbar input{border:1px solid #66747d;border-radius:8px;padding:9px;background:#fff;color:var(--ink);min-width:135px}.btnrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}button{border:0;border-radius:9px;padding:10px 12px;font-weight:850;cursor:pointer}.primary{background:var(--orange);color:#fff}.light{background:white;color:var(--navy)}.darkbtn{background:#4b555c;color:#fff}.danger{background:#5c2e2e;color:white}
+main{max-width:1400px;margin:14px auto 30px;padding:0 12px}.nav{display:flex;gap:7px;overflow:auto;padding-bottom:10px}.nav button{white-space:nowrap;background:#fff;color:#2a3740;border:1px solid #c8d0d5}.nav button.active{background:var(--navy);color:white;border-color:var(--orange);box-shadow:inset 0 -3px var(--orange)}.view{display:none}.view.active{display:block}.section-title{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:4px 0 12px}.section-title h2{margin:0;font-size:1.25rem}.muted{font-size:.83rem;color:#5b6870}
+.days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px}.day{background:white;border-radius:12px;overflow:hidden;box-shadow:0 3px 10px #17232d1c;min-width:0;border:1px solid #cbd2d7}.dayhead{color:#fff;padding:10px 8px;min-height:68px}.dayname{font-size:.95rem;font-weight:950}.theme{font-size:.62rem;font-weight:800;margin-top:3px}.day:nth-child(1) .dayhead{background:var(--blue)}.day:nth-child(2) .dayhead{background:var(--green)}.day:nth-child(3) .dayhead{background:var(--brown)}.day:nth-child(4) .dayhead{background:var(--green)}.day:nth-child(5) .dayhead{background:var(--purple)}.day:nth-child(6) .dayhead{background:var(--red)}.day:nth-child(7) .dayhead{background:var(--gold)}
+.daybody{padding:8px;background:linear-gradient(#fafbfc,#edf1f3)}.label{font-size:.67rem;text-transform:uppercase;letter-spacing:.04em;font-weight:900;color:#43515a;margin:4px 0}.day textarea,textarea,.textinput,select{width:100%;border:1px solid var(--line);border-radius:7px;padding:8px;background:white;color:#17232d;outline:none;resize:vertical;min-height:38px}.day textarea:focus,textarea:focus,input:focus,select:focus{border-color:var(--orange);box-shadow:0 0 0 2px #e8752426}.tasks{height:125px;min-height:100px;line-height:1.55}.evening{height:56px}.priority{height:50px}.remember{height:50px}.divider{height:1px;background:#d8dee2;margin:8px 0}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.panel{background:white;border-radius:12px;overflow:hidden;box-shadow:0 3px 10px #17232d1c;border:1px solid #d0d7db}.panel h3{margin:0;background:var(--charcoal);color:white;padding:11px 12px;font-size:.87rem}.panelbody{padding:10px;background:#f4f6f7}.panel textarea{height:110px}.threeprior textarea{height:58px;min-height:50px;margin-bottom:7px}.taskline{display:flex;align-items:flex-start;gap:8px;padding:8px 0;border-bottom:1px solid #e0e4e7}.taskline input[type=checkbox]{width:19px;height:19px;accent-color:var(--orange);flex-shrink:0;margin-top:4px}.taskline textarea{height:42px;min-height:38px;resize:vertical}.taskline.done textarea{text-decoration:line-through;opacity:.6}.tasklist{margin:0;padding:0;list-style:none}.smallbtn{padding:7px 9px;font-size:.8rem}.addrow{display:flex;justify-content:space-between;align-items:center;gap:8px;margin:8px 0}.projectcards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}.project{background:white;border:1px solid #cdd5da;border-radius:11px;overflow:hidden}.project h3{margin:0;padding:10px;background:var(--navy);color:white;font-size:.88rem}.project .panelbody textarea{height:100px}.project .panelbody select{margin-bottom:7px}.pill{display:inline-block;background:#fff0e5;color:#99400d;border-radius:999px;padding:4px 8px;font-size:.7rem;font-weight:900}
+footer{text-align:center;font-size:.76rem;color:#56636b;padding:12px}.emptyhint{color:#65737c;font-size:.86rem;padding:12px;background:#fff;border-radius:9px}
+#purchase-rows td{padding:5px;border-bottom:1px solid #e1e5e8}#purchase-rows input,#purchase-rows select{width:100%;min-width:90px;border:1px solid var(--line);border-radius:6px;padding:7px;background:#fff;color:var(--ink)}#purchase-rows input[type=checkbox]{width:20px;min-width:20px;accent-color:var(--orange)}#purchase-rows .remove{min-width:auto;padding:6px 9px;background:#5c2e2e;color:#fff}
+@media(max-width:1050px){.days{grid-template-columns:repeat(2,minmax(0,1fr))}.projectcards{grid-template-columns:repeat(2,minmax(0,1fr))}.grid3{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){header{padding:16px 12px}.logo{width:48px;height:48px;font-size:25px}.tag{font-size:.8rem}.days{grid-template-columns:1fr}.dayhead{min-height:auto;display:flex;justify-content:space-between;align-items:center}.theme{text-align:right;margin:0}.tasks{height:85px}.grid3,.grid2,.projectcards{grid-template-columns:1fr}.weekbar input{flex:1}.btnrow button{flex:1}.section-title{align-items:flex-start;flex-direction:column}}
+@media print{body{background:#fff}header{padding:8px;background:#17232d!important;print-color-adjust:exact;-webkit-print-color-adjust:exact}.logo,.btnrow,.nav,.muted,.addrow,.smallbtn{display:none!important}.days{grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}.dayhead{min-height:45px;padding:5px}.dayname{font-size:8pt}.theme{font-size:5pt}.daybody{padding:4px}.tasks{height:80px;min-height:80px}.evening,.priority,.remember{height:30px;min-height:30px}textarea{font-size:7pt!important;padding:3px!important}.panelbody{padding:4px}.panel textarea{height:55px}.days,.panel{box-shadow:none;break-inside:avoid}main{margin:5px auto}.view{display:none!important}#view-week{display:block!important}@page{size:A3 landscape;margin:5mm}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+ <div class="brandrow"><div class="logo">⚙️</div><div><div class="kicker">Ton tableau de bord personnel</div><h1>MON <span>QG</span></h1><div class="tag">PROJETS · TRAVAIL · FAMILLE · PLAISIR</div></div></div>
+ <div class="weekbar"><label for="weekstart">SEMAINE DU</label><input type="date" id="weekstart" data-save="weekstart"><label for="weekend">AU</label><input type="date" id="weekend" data-save="weekend"></div>
+ <div class="btnrow"><button class="primary" onclick="window.print()">🖨️ Imprimer / PDF</button><button class="light" onclick="exportData()">⬇️ Sauvegarder</button><button class="light" onclick="document.getElementById('importfile').click()">⬆️ Charger une sauvegarde</button><button class="darkbtn" onclick="newWeek()">↻ Nouvelle semaine</button><input type="file" id="importfile" accept=".json,application/json" hidden onchange="importData(event)"></div>
+</div></header>
+<main>
+ <nav class="nav" aria-label="Sections"><button class="active" data-view="dashboard">🏠 Mon QG</button><button data-view="week">📅 Ma semaine</button><button data-view="priorities">🎯 Priorités & tâches</button><button data-view="projects">🧰 Mes projets</button><button data-view="purchases">🛒 Achats & budgets</button><button data-view="notes">💡 Notes & bilan</button></nav>
+ <section id="view-dashboard" class="view active">
+  <div class="section-title"><h2>🏠 Vue générale</h2><span class="pill">TON CENTRE DE COMMANDEMENT</span></div>
+  <div class="grid3">
+   <div class="panel"><h3>📅 Cette semaine</h3><div class="panelbody"><p class="muted">Un aperçu rapide de tes journées.</p><div id="dash-week" class="emptyhint">Ton planning est prêt à être organisé.</div><button class="primary smallbtn" onclick="showView('week')">Ouvrir le planning →</button></div></div>
+   <div class="panel"><h3>⚡ Aujourd’hui</h3><div class="panelbody"><div id="dash-today" class="emptyhint">Tes tâches du jour apparaîtront ici.</div><button class="primary smallbtn" onclick="showView('week')">Ouvrir ma semaine →</button></div></div>
+   <div class="panel"><h3>🎯 Mes priorités</h3><div class="panelbody"><div id="dash-priorities" class="emptyhint">Ajoute tes trois priorités pour les voir ici.</div><button class="primary smallbtn" onclick="showView('priorities')">Voir les priorités →</button></div></div>
+   <div class="panel"><h3>🧰 Mes projets</h3><div class="panelbody"><div id="dash-projects" class="emptyhint">Suis l'état de tes projets et leur prochaine action.</div><button class="primary smallbtn" onclick="showView('projects')">Ouvrir les projets →</button></div></div>
+   <div class="panel"><h3>🛒 Achats à prévoir</h3><div class="panelbody"><div id="dash-purchases" class="emptyhint">Garde ici les achats prévus et leurs budgets.</div><button class="primary smallbtn" onclick="showView('purchases')">Gérer les achats →</button></div></div>
+   <div class="panel"><h3>☑️ Tâches en attente</h3><div class="panelbody"><div id="dash-tasks" class="emptyhint">Les tâches flexibles et reportées apparaîtront ici.</div><button class="primary smallbtn" onclick="showView('priorities')">Voir les tâches →</button></div></div>
+   <div class="panel"><h3>🏁 Avancement</h3><div class="panelbody"><div id="dash-progress" class="emptyhint">Les projets terminés et tâches cochées seront résumés ici.</div></div></div>
+  </div>
+ </section>
+ <section id="view-week" class="view">
+  <div class="section-title"><h2>📅 Vue de la semaine</h2><span class="pill">ÉDITION LIBRE</span></div>
+  <div class="days" id="days"></div>
+ </section>
+ <section id="view-priorities" class="view">
+  <div class="section-title"><h2>🎯 Priorités & tâches</h2><div class="muted">Coche les tâches terminées et ajoute ce qui te passe par la tête.</div></div>
+  <div class="grid3">
+   <div class="panel threeprior"><h3>🎯 Mes 3 priorités</h3><div class="panelbody"><textarea data-save="p1" placeholder="1. Priorité principale"></textarea><textarea data-save="p2" placeholder="2. Deuxième priorité"></textarea><textarea data-save="p3" placeholder="3. Troisième priorité"></textarea></div></div>
+   <div class="panel"><h3>☑️ À faire quand j'ai un moment</h3><div class="panelbody"><div class="addrow"><span class="muted">Tâches flexibles</span><button class="primary smallbtn" onclick="addTask('sometime')">＋ Ajouter</button></div><ul id="sometime-list" class="tasklist"></ul></div></div>
+   <div class="panel"><h3>⏭️ Reporté à la semaine prochaine</h3><div class="panelbody"><div class="addrow"><span class="muted">À reprendre plus tard</span><button class="primary smallbtn" onclick="addTask('deferred')">＋ Ajouter</button></div><ul id="deferred-list" class="tasklist"></ul></div></div>
+   <div class="panel"><h3>📅 Rendez-vous importants</h3><div class="panelbody"><textarea data-save="appointments" placeholder="Dates, rendez-vous, contraintes…"></textarea></div></div>
+   <div class="panel"><h3>🛒 Achats / matériel</h3><div class="panelbody"><textarea data-save="shopping" placeholder="Matériel à acheter, pièces à commander…"></textarea></div></div>
+   <div class="panel"><h3>⭐ Mes petites victoires</h3><div class="panelbody"><textarea data-save="wins" placeholder="Ce que tu as réussi à faire cette semaine…"></textarea></div></div>
+  </div>
+ </section>
+ <section id="view-projects" class="view">
+  <div class="section-title"><h2>🧰 Suivi des projets</h2><div class="muted">Un espace pour les projets que tu veux faire avancer.</div></div>
+  <div class="projectcards" id="projectcards"></div>
+ </section>
+ <section id="view-purchases" class="view">
+  <div class="section-title"><h2>🛒 Achats & budgets</h2><div class="muted">Prépare tes achats, associe-les à un projet et suis le budget.</div></div>
+  <div class="panel"><h3>Liste des achats</h3><div class="panelbody">
+   <div class="addrow"><span class="muted">Ajoute une ligne par achat ou commande.</span><button class="primary smallbtn" onclick="addPurchase()">＋ Ajouter un achat</button></div>
+   <div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;min-width:680px"><thead><tr style="text-align:left;color:#53616a;font-size:.75rem"><th>Article / matériel</th><th>Projet</th><th>Priorité</th><th>Budget prévu (€)</th><th>Prix payé (€)</th><th>Commandé ?</th><th></th></tr></thead><tbody id="purchase-rows"></tbody></table></div>
+   <div class="divider"></div><div class="grid3"><div class="emptyhint">Budget total prévu : <strong id="budget-planned">0 €</strong></div><div class="emptyhint">Dépenses réelles : <strong id="budget-spent">0 €</strong></div><div class="emptyhint">Écart : <strong id="budget-diff">0 €</strong></div></div>
+  </div></div>
+ </section>
+ <section id="view-notes" class="view">
+  <div class="section-title"><h2>💡 Notes & bilan</h2></div>
+  <div class="grid3">
+   <div class="panel"><h3>💡 Notes / idées</h3><div class="panelbody"><textarea data-save="ideas" placeholder="Idées à garder pour plus tard…"></textarea></div></div>
+   <div class="panel"><h3>🏁 Bilan de la semaine</h3><div class="panelbody"><textarea data-save="review" placeholder="Avancé / à reprendre / ce qui a bien marché…"></textarea></div></div>
+   <div class="panel"><h3>🧭 Préparer la semaine suivante</h3><div class="panelbody"><textarea data-save="nextweek" placeholder="Ce que tu veux anticiper pour la prochaine semaine…"></textarea></div></div>
+  </div>
+ </section>
+</main>
+<footer>MON QG · Organise ta semaine à ta façon. Pense à sauvegarder tes données avant de changer de navigateur ou d'appareil.</footer>
+<script>
+const prefix='monQGV2_',days=[["LUNDI","TRAVAIL / CHANTIER","💼"],["MARDI","MAISON / TRAVAUX","🏡"],["MERCREDI","ATELIER / MÉCANIQUE","⚙️"],["JEUDI","JARDIN / EXTÉRIEUR","🌿"],["VENDREDI","FAMILLE / LOISIRS","❤️"],["SAMEDI","PROJETS / GROS TRAVAUX","🛠️"],["DIMANCHE","REPOS / PRÉPARATION","🌅"]];
+const projects=[["Camion","🚛"],["Atelier","⚙️"],["Maison","🏡"],["Jardin","🌿"],["Bateau","🚤"],["Véhicules","🚙"],["Matériel","🧰"],["Autre projet","🧭"]];
+function el(tag,attrs={},text=''){const e=document.createElement(tag);Object.entries(attrs).forEach(([k,v])=>e.setAttribute(k,v));if(text)e.textContent=text;return e}
+function field(key,placeholder,cls=''){const e=el('textarea',{class:cls,'data-save':key,placeholder});return e}
+const host=document.getElementById('days');
+days.forEach((d,i)=>{const card=el('article',{class:'day'});card.innerHTML=`<div class="dayhead"><div class="dayname">${d[2]} ${d[0]}</div><div class="theme">${d[1]}</div></div><div class="daybody"><div class="label">Programme / tâches</div><textarea class="tasks" data-save="day${i}_tasks" placeholder="Ce que tu veux avancer…"></textarea><div class="divider"></div><div class="label">🌙 Soirée</div><textarea class="evening" data-save="day${i}_evening" placeholder="Programme principal…"></textarea><div class="divider"></div><div class="label">⭐ Priorité du jour</div><textarea class="priority" data-save="day${i}_priority" placeholder="Le plus important"></textarea><div class="divider"></div><div class="label">🔔 À ne pas oublier</div><textarea class="remember" data-save="day${i}_remember" placeholder="Rappel / contrainte…"></textarea></div>`;host.appendChild(card)});
+const pHost=document.getElementById('projectcards');
+projects.forEach(([name,icon],i)=>{const p=el('article',{class:'project'});p.innerHTML=`<h3>${icon} ${name}</h3><div class="panelbody"><div class="label">État du projet</div><select data-save="project${i}_status"><option>À prévoir</option><option>À faire</option><option>En cours</option><option>En attente</option><option>Terminé</option></select><div class="label">Prochaine action</div><textarea data-save="project${i}_next" placeholder="La prochaine étape…"></textarea><div class="label">Notes</div><textarea data-save="project${i}_notes" placeholder="Pièces, idées, infos…"></textarea></div>`;pHost.appendChild(p)});
+function loadFields(){document.querySelectorAll('[data-save]').forEach(e=>{const v=localStorage.getItem(prefix+e.dataset.save);if(v!==null)e.value=v;e.addEventListener('input',()=>localStorage.setItem(prefix+e.dataset.save,e.value))})}
+function getList(key){try{return JSON.parse(localStorage.getItem(prefix+'list_'+key)||'[]')}catch{return []}}
+function setList(key,list){localStorage.setItem(prefix+'list_'+key,JSON.stringify(list));renderList(key)}
+function addTask(key){const list=getList(key);list.push({text:'',done:false});setList(key,list);const boxes=document.querySelectorAll(`#${key}-list textarea`);if(boxes.length)boxes[boxes.length-1].focus()}
+function renderList(key){const ul=document.getElementById(key+'-list');if(!ul)return;ul.innerHTML='';getList(key).forEach((item,i)=>{const li=el('li',{class:'taskline'+(item.done?' done':'')});const cb=el('input',{type:'checkbox'});cb.checked=item.done;cb.addEventListener('change',()=>{const l=getList(key);l[i].done=cb.checked;setList(key,l)});const ta=el('textarea',{placeholder:'Écrire une tâche…'});ta.value=item.text;ta.addEventListener('input',()=>{const l=getList(key);l[i].text=ta.value;localStorage.setItem(prefix+'list_'+key,JSON.stringify(l))});const del=el('button',{class:'darkbtn smallbtn',title:'Supprimer'},'×');del.addEventListener('click',()=>{const l=getList(key);l.splice(i,1);setList(key,l)});li.append(cb,ta,del);ul.appendChild(li)})}
+function allData(){const values={};document.querySelectorAll('[data-save]').forEach(e=>values[e.dataset.save]=e.value);return {app:'MON QG',version:2,exportedAt:new Date().toISOString(),values,lists:{sometime:getList('sometime'),deferred:getList('deferred')}}}
+function exportData(){const blob=new Blob([JSON.stringify(allData(),null,2)],{type:'application/json'});const a=el('a',{href:URL.createObjectURL(blob),download:'mon-qg-sauvegarde.json'});a.click();URL.revokeObjectURL(a.href)}
+function importData(ev){const f=ev.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const d=JSON.parse(r.result);if(!d.values)throw 0;document.querySelectorAll('[data-save]').forEach(e=>{if(d.values[e.dataset.save]!==undefined){e.value=d.values[e.dataset.save];localStorage.setItem(prefix+e.dataset.save,e.value)}});if(d.lists){setList('sometime',d.lists.sometime||[]);setList('deferred',d.lists.deferred||[])}alert('Sauvegarde restaurée dans MON QG ! 😎')}catch{alert('Cette sauvegarde ne semble pas valide.')}ev.target.value=''};r.readAsText(f)}
+function newWeek(){if(!confirm('Effacer le planning de cette semaine ? Sauvegarde avant si tu veux le conserver.'))return;document.querySelectorAll('[data-save]').forEach(e=>{e.value='';localStorage.removeItem(prefix+e.dataset.save)});['sometime','deferred'].forEach(k=>setList(k,[]));const now=new Date(),m=new Date(now);m.setDate(now.getDate()-((now.getDay()+6)%7));const s=new Date(m);s.setDate(m.getDate()+6);const iso=d=>new Date(d.getTime()-d.getTimezoneOffset()*60000).toISOString().slice(0,10);document.getElementById('weekstart').value=iso(m);document.getElementById('weekend').value=iso(s);['weekstart','weekend'].forEach(id=>localStorage.setItem(prefix+id,document.getElementById(id).value))}
+document.querySelectorAll('.nav button').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.nav button').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v.id==='view-'+b.dataset.view))}));
+loadFields();renderList('sometime');renderList('deferred');
+</script>
+
+<script>
+const purchaseKey=prefix+'purchases';
+function getPurchases(){try{return JSON.parse(localStorage.getItem(purchaseKey)||'[]')}catch{return []}}
+function savePurchases(rows){localStorage.setItem(purchaseKey,JSON.stringify(rows));renderPurchases();refreshDashboard()}
+function addPurchase(){const rows=getPurchases();rows.push({item:'',project:'Atelier',priority:'Normale',planned:'',spent:'',ordered:false});savePurchases(rows)}
+function renderPurchases(){const body=document.getElementById('purchase-rows');if(!body)return;body.innerHTML='';const rows=getPurchases();rows.forEach((r,i)=>{const tr=document.createElement('tr');
+ const addInput=(key,placeholder,type='text')=>{const td=document.createElement('td'),input=document.createElement('input');input.type=type;input.placeholder=placeholder;input.value=r[key]??'';if(type==='number'){input.min='0';input.step='0.01'}input.addEventListener('input',()=>{const arr=getPurchases();arr[i][key]=type==='number'?(input.value===''?'':Number(input.value)):input.value;localStorage.setItem(purchaseKey,JSON.stringify(arr));updateBudget();refreshDashboard()});td.appendChild(input);tr.appendChild(td)};
+ addInput('item','Article / matériel');
+ const tdP=document.createElement('td'),selP=document.createElement('select');['Atelier','Maison','Jardin','Véhicules','Bateau','Camion','Autre'].forEach(v=>{const o=document.createElement('option');o.textContent=v;selP.appendChild(o)});selP.value=r.project||'Atelier';selP.addEventListener('change',()=>{const a=getPurchases();a[i].project=selP.value;localStorage.setItem(purchaseKey,JSON.stringify(a));refreshDashboard()});tdP.appendChild(selP);tr.appendChild(tdP);
+ const tdPr=document.createElement('td'),selPr=document.createElement('select');['Basse','Normale','Haute','Urgente'].forEach(v=>{const o=document.createElement('option');o.textContent=v;selPr.appendChild(o)});selPr.value=r.priority||'Normale';selPr.addEventListener('change',()=>{const a=getPurchases();a[i].priority=selPr.value;localStorage.setItem(purchaseKey,JSON.stringify(a));refreshDashboard()});tdPr.appendChild(selPr);tr.appendChild(tdPr);
+ addInput('planned','0','number');addInput('spent','0','number');
+ const tdO=document.createElement('td'),cb=document.createElement('input');cb.type='checkbox';cb.checked=!!r.ordered;cb.addEventListener('change',()=>{const a=getPurchases();a[i].ordered=cb.checked;localStorage.setItem(purchaseKey,JSON.stringify(a));refreshDashboard()});tdO.appendChild(cb);tr.appendChild(tdO);
+ const tdD=document.createElement('td'),del=document.createElement('button');del.className='remove';del.textContent='×';del.onclick=()=>{const a=getPurchases();a.splice(i,1);savePurchases(a)};tdD.appendChild(del);tr.appendChild(tdD);body.appendChild(tr);
+ });updateBudget()}
+function updateBudget(){const rows=getPurchases();const planned=rows.reduce((s,r)=>s+(Number(r.planned)||0),0),spent=rows.reduce((s,r)=>s+(Number(r.spent)||0),0);document.getElementById('budget-planned').textContent=planned.toLocaleString('fr-FR',{style:'currency',currency:'EUR'});document.getElementById('budget-spent').textContent=spent.toLocaleString('fr-FR',{style:'currency',currency:'EUR'});document.getElementById('budget-diff').textContent=(planned-spent).toLocaleString('fr-FR',{style:'currency',currency:'EUR'})}
+function showView(name){document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.view===name));document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v.id==='view-'+name));}
+function refreshDashboard(){const text=(id,value)=>{const n=document.getElementById(id);if(n)n.textContent=value};
+ const vals=k=>document.querySelector(`[data-save="${k}"]`)?.value?.trim()||'';
+ const priorities=[vals('p1'),vals('p2'),vals('p3')].filter(Boolean);
+ const projectsState=projects.map(([name],i)=>({name,status:vals('project'+i+'_status')||'À prévoir',next:vals('project'+i+'_next')})).filter(p=>p.next||p.status==='En cours'||p.status==='En attente'||p.status==='Terminé');
+ const active=projectsState.filter(p=>p.status!=='Terminé').length,done=projectsState.filter(p=>p.status==='Terminé').length;
+ const week=days.map((d,i)=>({name:d[0],value:vals('day'+i+'_evening')})).filter(x=>x.value);
+ const purch=getPurchases().filter(p=>p.item&&!p.ordered);
+ const tasks=[...getList('sometime'),...getList('deferred')].filter(t=>t.text&&!t.done);
+ const dw=document.getElementById('dash-week');if(dw)dw.textContent=week.length?week.map(x=>x.name+': '+x.value).join(' · '):'Aucune soirée planifiée pour le moment.';
+ const dp=document.getElementById('dash-priorities');if(dp)dp.textContent=priorities.length?priorities.map((x,i)=>(i+1)+'. '+x).join(' · '):'Ajoute tes trois priorités pour les voir ici.';
+ const dpr=document.getElementById('dash-projects');if(dpr)dpr.textContent=projectsState.length?projectsState.map(p=>p.name+' — '+p.status+(p.next?' : '+p.next:'')).join(' · '):'Aucun projet renseigné pour le moment.';
+ const dpu=document.getElementById('dash-purchases');if(dpu)dpu.textContent=purch.length?purch.length+' achat(s) à prévoir, pour un budget de '+purch.reduce((s,p)=>s+(Number(p.planned)||0),0).toLocaleString('fr-FR')+' €.' :'Aucun achat en attente.';
+ const dt=document.getElementById('dash-tasks');if(dt)dt.textContent=tasks.length?tasks.length+' tâche(s) encore à faire.':'Aucune tâche en attente dans les listes.';
+ const prog=document.getElementById('dash-progress');if(prog)prog.textContent=done+' projet(s) terminé(s), '+active+' projet(s) actif(s), '+[...getList('sometime'),...getList('deferred')].filter(t=>t.done).length+' tâche(s) cochée(s).';
+}
+const oldExport=exportData;
+exportData=function(){const data=allData();data.purchases=getPurchases();const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='mon-qg-sauvegarde.json';a.click();URL.revokeObjectURL(a.href)};
+const oldImport=importData;
+importData=function(ev){const f=ev.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const d=JSON.parse(r.result);if(!d.values)throw 0;document.querySelectorAll('[data-save]').forEach(e=>{if(d.values[e.dataset.save]!==undefined){e.value=d.values[e.dataset.save];localStorage.setItem(prefix+e.dataset.save,e.value)}});if(d.lists){setList('sometime',d.lists.sometime||[]);setList('deferred',d.lists.deferred||[])}if(d.purchases)localStorage.setItem(purchaseKey,JSON.stringify(d.purchases));renderPurchases();refreshDashboard();alert('Sauvegarde restaurée dans MON QG ! 😎')}catch{alert('Cette sauvegarde ne semble pas valide.')}ev.target.value=''};r.readAsText(f)};
+document.querySelectorAll('[data-save]').forEach(e=>e.addEventListener('input',refreshDashboard));
+document.querySelectorAll('.nav button').forEach(b=>b.addEventListener('click',()=>showView(b.dataset.view)));
+renderPurchases();refreshDashboard();
+</script>
+
+
+<script>
+function refreshToday(){const now=new Date();const idx=(now.getDay()+6)%7;const name=days[idx][0];const vals=k=>document.querySelector(`[data-save="${k}"]`)?.value?.trim()||'';const chunks=[];
+const evening=vals('day'+idx+'_evening'),tasks=vals('day'+idx+'_tasks'),priority=vals('day'+idx+'_priority'),remember=vals('day'+idx+'_remember');
+if(tasks)chunks.push('Programme : '+tasks);if(evening)chunks.push('Soirée : '+evening);if(priority)chunks.push('Priorité : '+priority);if(remember)chunks.push('À ne pas oublier : '+remember);
+const todos=[...getList('sometime'),...getList('deferred')].filter(t=>t.text&&!t.done);
+if(todos.length)chunks.push(todos.length+' tâche(s) flexibles en attente');
+const box=document.getElementById('dash-today');if(box)box.textContent=chunks.length?name+' — '+chunks.join(' · '):name+' : rien de prévu pour le moment. Tu peux organiser ta journée dans « Ma semaine ».';
+}
+const refreshDashboardBase=refreshDashboard;
+refreshDashboard=function(){refreshDashboardBase();refreshToday()};
+refreshToday();
+</script>
+
+</body></html>
+<script>if('serviceWorker' in navigator && location.protocol.startsWith('http')) navigator.serviceWorker.register('./service-worker.js').catch(()=>{});</script>
